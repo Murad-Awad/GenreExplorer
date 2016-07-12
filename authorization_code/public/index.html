@@ -35,7 +35,7 @@
             <input type="text" placeholder="What song do you like?" id="songtext" />
             <button class="btn btn-default" id="search">Search</button>
         </div>
-        <div id="results"> Heck yeah </div>
+        <div id="results"></div>
     </div>
     </div>
 
@@ -163,12 +163,15 @@
                           type: 'album'
                       },
                       success: function (response) {
+                          document.write(JSON.stringify(response));
+                          resultsPlaceholder.innerHTML = template(response);
                           alert("Success!");
                       }
                   });
-              };
-              document.getElementById('search').addEventListener('click', function () {
-                  searchAlbums(document.getElementById('songtext').value);
+              }
+              document.getElementById('search').addEventListener('click', function (e) {
+                  e.preventDefault();
+                  searchAlbums(document.getElementById('songtext').value.toString());
               }, false);
           })();
          
