@@ -77,8 +77,8 @@
         </dl>
     </script>
     <script id="results-template" type="text/x-handlebars-template">
-        {{#each albums.items}}
-        <div style="background-image:url({{images.0.url}})" data-album-id="{{id}}" class="cover"></div>
+        {{#each tracks.items}}
+        <div >{{name}}</div>
         {{/each}}
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -156,12 +156,12 @@
                       });
                   }, false);
               }
-              var searchAlbums = function (query) {
+              var searchTracks = function (query) {
                   $.ajax({
                       url: 'https://api.spotify.com/v1/search',
                       data: {
                           q: query,
-                          type: 'album'
+                          type: 'track'
                       },
                       success: function (response) {
                           resultsPlaceholder.innerHTML = template(response);
@@ -171,7 +171,7 @@
               }
               document.getElementById('search').addEventListener('click', function (e) {
                   e.preventDefault();
-                  searchAlbums(document.getElementById('songtext').value.toString());
+                  searchTracks(document.getElementById('songtext').value.toString());
               }, false);
           })();
          
