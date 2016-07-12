@@ -30,11 +30,12 @@
             </div>
             <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
         </div>
-        <div id="important">
+        <div class="container">
+        <form id="important">
             <input type="text" placeholder="What genre would you like to explore?" />
             <input type="text" placeholder="What song do you like?" id="songtext" />
             <button class="btn btn-default" id="search">Search</button>
-        </div>
+        </form>
         <div id="results"></div>
     </div>
     </div>
@@ -163,7 +164,6 @@
                           type: 'album'
                       },
                       success: function (response) {
-                          document.write(JSON.stringify(response));
                           resultsPlaceholder.innerHTML = template(response);
                           alert("Success!");
                       }
