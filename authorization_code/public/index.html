@@ -39,7 +39,7 @@
                <div id="results"></div>
             </div>
         </div>
-        <div id="newSongs">NEWSONGS</div>
+        <div id="newSongs"></div>
         <button class="btn btn-default" id="getSongs">Find Songs</button>
         </div>
     
@@ -88,8 +88,7 @@
     <script id="genreExplorer-template" type="text/x-handlebars">
         <h1>{{title}} By {{artist}}</h1>
         <form>
-            <input type="text" placeholder="What genre would you like to explore?" id="genre"/>
-            
+            <input type="text" placeholder="What genre would you like to explore?" id="genre"/>  
         </form>
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
@@ -253,7 +252,7 @@
 
                       },
                       success: function (response) {
-                          alert("SUCCESS");
+                          
                          newSongsPlaceholder.innerHTML = template3(response);
                       },
                       error: function (xhr, response, textStatus, thrownError) {
