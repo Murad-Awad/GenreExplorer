@@ -39,6 +39,7 @@
                <div id="results"></div>
             </div>
         </div>
+        <div id="results2"></div>
         <button class="btn btn-default" id="getSongs">Find Songs</button>
         </div>
     <script id="user-profile-template" type="text/x-handlebars-template">
@@ -100,7 +101,6 @@
                * @return Object
                */
            
-
               var dance;
               var energy;
               var key;
@@ -113,7 +113,7 @@
               var valence;
               var tempo;
               var time_signature;
-              var artistid;
+              var artistDataID;
               var templateSource = document.getElementById('results-template').innerHTML,
             template = Handlebars.compile(templateSource),
             resultsPlaceholder = document.getElementById('results'),
@@ -122,6 +122,7 @@
               var templateSource2 = document.getElementById('genreExplorer-template').innerHTML;
               var template2 = Handlebars.compile(templateSource2);
               var resultsPlaceholder2 = document.getElementById('genreExplorer');
+              var resultsPlaceholder3 = document.getElementById('results2');
               function getHashParams() {
                   var hashParams = {};
                   var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -191,7 +192,6 @@
                           'Authorization': 'Bearer ' + access_token
                       },
                       success: function (response) {
-                          alert("Success again!");
                           dance = response.danceability;
                           energy = response.energy;
                           key = response.key;
@@ -220,12 +220,36 @@
                       }
                   });
               }
+              var getNewTracks = function (gs) {
+                  $.ajax({
+                      url: 'https://api.spotify.com/v1/recommendations',
+                      type: "GET",
+                      async: false,
+                      headers: {
+                          'Authorization': 'Bearer ' + access_token
+                      },
+                      data: {
+                          seed_artists: artistDataID,
+                          seed_tracks: songID
+                      },
+                      success: function (response) {
+                          document.write(JSON.stringify(response));
+                          alert("NICE");
+                          resultsPlaceholder3.innerHTML = template(response);
+                      },
+                      error: function (xhr, response, textStatus, thrownError) {
+                          alert(JSON.stringify(xhr));
+                      }
+                  });
+              }
               results.addEventListener('click', function (e) {
                   var target = e.target;
                   var songData = {title:target.getAttribute("songid"),artist:target.getAttribute("artistid")};
                   resultsPlaceholder2.innerHTML = template2(songData);
                   var songID = target.getAttribute("song-data-id");
                   window.songID = songID;
+                  artistDataID = target.getAttribute("artistid");
+                  window.artistDataID = artistDataID;
               });
               
               document.getElementById('search').addEventListener('click', function (e) {
@@ -235,7 +259,7 @@
 
               document.getElementById('getSongs').addEventListener('click', function () {
                   getSongFeatures(songID);
-                 
+                  getNewTracks(document.getElementById('genre').value.toString());
               }, false);
           })();
          
