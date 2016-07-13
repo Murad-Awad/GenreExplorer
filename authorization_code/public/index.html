@@ -78,7 +78,8 @@
     </script>
     <script id="results-template" type="text/x-handlebars-template">
         {{#each tracks.items}}
-        <div >{{name}}</div>
+        <div>{{name}} By {{artists.0.name}}</div>
+        
         {{/each}}
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
