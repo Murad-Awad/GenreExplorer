@@ -36,9 +36,10 @@
                     <input type="text" placeholder="What song do you like?" id="songtext" />
                     <button class="btn btn-default" id="search">Search</button>
                 </form>
-                <div id="results"></div>
+               <div id="results"></div>
             </div>
         </div>
+        <button class="btn btn-default" id="getSongs">Find Songs</button>
         </div>
     <script id="user-profile-template" type="text/x-handlebars-template">
         <h1>Logged in as {{display_name}}</h1>
@@ -78,7 +79,7 @@
     </script>
     <script id="results-template" type="text/x-handlebars-template">
         {{#each tracks.items}}
-        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.name}}" urlid="{{id}}">{{name}} By {{artists.0.name}}</button>
+        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
         
         {{/each}}
     </script>
@@ -86,7 +87,7 @@
         <h1>{{title}} By {{artist}}</h1>
         <form>
             <input type="text" placeholder="What genre would you like to explore?" id="genre"/>
-            <button class="btn btn-default" id="getSongs">Find Songs</button>
+            
         </form>
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
@@ -100,7 +101,18 @@
                */
            
 
-                 
+              var dance;
+              var energy;
+              var key;
+              var loudness;
+              var mode;
+              var speechiness;
+              var acousticness;
+              var instrumentalness;
+              var liveness;
+              var valence;
+              var tempo;
+              var time_signature;
               var templateSource = document.getElementById('results-template').innerHTML,
             template = Handlebars.compile(templateSource),
             resultsPlaceholder = document.getElementById('results'),
@@ -170,6 +182,30 @@
                       });
                   }, false);
               }
+              var getSongFeatures = function (id) {
+                  $.ajax({
+                      url: 'https://api.spotify.com/v1/audio-features/' + id,
+                      async: false,
+                      headers: {
+                          'Authorization': 'Bearer ' + access_token
+                      },
+                      success: function (response) {
+                          alert("Success again!");
+                          dance = response.danceability;
+                          energy = response.energy;
+                          key = response.key;
+                          loudness = response.loudness;
+                          mode = response.mode;
+                          speechiness = response.speechiness;
+                          acousticness = response.acousticness;
+                          instrumentalness = response.instrumentalness;
+                          liveness = response.liveness;
+                          valence = response.valence;
+                          tempo = response.tempo;
+                          time_signature = response.time_signature;
+                      }
+                  });
+              }
               var searchTracks = function (query) {
                   $.ajax({
                       url: 'https://api.spotify.com/v1/search',
@@ -179,7 +215,7 @@
                       },
                       success: function (response) {
                           resultsPlaceholder.innerHTML = template(response);
-                          alert("Success!");
+                          
                       }
                   });
               }
@@ -187,12 +223,18 @@
                   var target = e.target;
                   var songData = {title:target.getAttribute("songid"),artist:target.getAttribute("artistid")};
                   resultsPlaceholder2.innerHTML = template2(songData);
-                  alert(target.getAttribute('songid'));
+                  var songID = target.getAttribute("song-data-id");
+                  window.songID = songID;
               });
               
               document.getElementById('search').addEventListener('click', function (e) {
                   e.preventDefault();
                   searchTracks(document.getElementById('songtext').value.toString());
+              }, false);
+
+              document.getElementById('getSongs').addEventListener('click', function () {
+                  getSongFeatures(songID);
+                 
               }, false);
           })();
          
