@@ -1,12 +1,7 @@
-# Spotify Accounts Authentication Examples
+# Genre Explorer
 
-This project contains basic demos showing the different OAuth 2.0 flows for [authenticating against the Spotify Web API](https://developer.spotify.com/web-api/authorization-guide/).
+This project uses spotify api in order to try to suggest songs within a genre the user is unfamiliar with but interested in, by analyzing a song they like, recording its attributes, and then finding tracks with similar attributes but within the genre they select.
 
-These examples cover:
-
-* Authorization Code flow
-* Client Credentials flow
-* Implicit Grant flow
 
 ## Installation
 
