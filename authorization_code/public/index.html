@@ -220,17 +220,29 @@
                       }
                   });
               }
-              var getNewTracks = function (gs) {
+              var getNewTracks = function (a,d,e,i,k,li,lo,m,s,te,ti,v,gs) {
                   $.ajax({
                       url: 'https://api.spotify.com/v1/recommendations',
-                      type: "GET",
                       async: false,
                       headers: {
                           'Authorization': 'Bearer ' + access_token
                       },
                       data: {
                           seed_artists: artistDataID,
-                          seed_tracks: songID
+                          seed_tracks: songID,
+                          seed_genres: gs,
+                          target_acousticness: a,	
+                          target_danceability: d,
+                          target_energy: e,
+                          target_instrumentalness: i,
+                          target_key: k,
+                          target_liveness: li,
+                          target_loudness: lo,
+                          target_mode: m,
+                          target_speechiness: s,
+                          target_tempo: te,
+                          target_time_signature:ti,
+                          target_valence: v
                       },
                       success: function (response) {
                           document.write(JSON.stringify(response));
@@ -259,7 +271,7 @@
 
               document.getElementById('getSongs').addEventListener('click', function () {
                   getSongFeatures(songID);
-                  getNewTracks(document.getElementById('genre').value.toString());
+                  getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById('genre').value.toString());
               }, false);
           })();
          
