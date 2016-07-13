@@ -19,4 +19,9 @@ In order to run the different examples, open the folder with the name of the flo
 
 Then, open `http://localhost:8888` in a browser.
 
-
+###Usage
+1. Log in to spotify.
+2. Search for a song that you like 
+3. Select the song you like
+4. Enter the genre you want to explore
+5. (Currently broken, hoping to be resolved soon. If anyone knows how to properly get recommendations based on seeds within the spotify api please let me know) The app will return a list of tracks within the genre you want to explore which are musically comparable to the song you selected. 
