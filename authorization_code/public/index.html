@@ -78,7 +78,7 @@
     </script>
     <script id="results-template" type="text/x-handlebars-template">
         {{#each tracks.items}}
-        <div id="song" songid="{{name}}" artistid="{{artists.0.name}}" urlid="{{id}}">{{name}} By {{artists.0.name}}</div>
+        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.name}}" urlid="{{id}}">{{name}} By {{artists.0.name}}</button>
         
         {{/each}}
     </script>
