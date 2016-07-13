@@ -39,9 +39,10 @@
                <div id="results"></div>
             </div>
         </div>
-        <div id="results2"></div>
+        <div id="newSongs">NEWSONGS</div>
         <button class="btn btn-default" id="getSongs">Find Songs</button>
         </div>
+    
     <script id="user-profile-template" type="text/x-handlebars-template">
         <h1>Logged in as {{display_name}}</h1>
         <div class="media">
@@ -80,7 +81,7 @@
     </script>
     <script id="results-template" type="text/x-handlebars-template">
         {{#each tracks.items}}
-        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
+        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname= "{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
         
         {{/each}}
     </script>
@@ -90,6 +91,12 @@
             <input type="text" placeholder="What genre would you like to explore?" id="genre"/>
             
         </form>
+    </script>
+    <script id="getsongs-template" type="text/x-handlebars-template">
+        {{#each tracks}}
+        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
+
+        {{/each}}
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -122,7 +129,9 @@
               var templateSource2 = document.getElementById('genreExplorer-template').innerHTML;
               var template2 = Handlebars.compile(templateSource2);
               var resultsPlaceholder2 = document.getElementById('genreExplorer');
-              var resultsPlaceholder3 = document.getElementById('results2');
+              var templateSource3 = document.getElementById('getsongs-template').innerHTML;
+              var template3 = Handlebars.compile(templateSource3);
+              var newSongsPlaceholder = document.getElementById('newSongs');
               function getHashParams() {
                   var hashParams = {};
                   var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -231,7 +240,7 @@
                           seed_artists: artistDataID,
                           seed_tracks: songID,
                           seed_genres: gs,
-                          target_acousticness: a,	
+                          target_acousticness: a,
                           target_danceability: d,
                           target_energy: e,
                           target_instrumentalness: i,
@@ -241,22 +250,22 @@
                           target_mode: m,
                           target_speechiness: s,
                           target_tempo: te,
-                          target_time_signature:ti,
+                          target_time_signature: ti,
                           target_valence: v
+
                       },
                       success: function (response) {
-                          document.write(JSON.stringify(response));
-                          alert("NICE");
-                          resultsPlaceholder3.innerHTML = template(response);
+                          alert("SUCCESS");
+                         newSongsPlaceholder.innerHTML = template3(response);
                       },
                       error: function (xhr, response, textStatus, thrownError) {
-                          alert(JSON.stringify(xhr));
+                          document.write(response+JSON.stringify(xhr)+JSON.stringify(textStatus)+JSON.stringify(thrownError));
                       }
                   });
               }
               results.addEventListener('click', function (e) {
                   var target = e.target;
-                  var songData = {title:target.getAttribute("songid"),artist:target.getAttribute("artistid")};
+                  var songData = {title:target.getAttribute("songid"),artist:target.getAttribute("artistname")};
                   resultsPlaceholder2.innerHTML = template2(songData);
                   var songID = target.getAttribute("song-data-id");
                   window.songID = songID;
@@ -271,7 +280,7 @@
 
               document.getElementById('getSongs').addEventListener('click', function () {
                   getSongFeatures(songID);
-                  getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById('genre').value.toString());
+                  getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
               }, false);
           })();
          
