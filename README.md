@@ -19,12 +19,9 @@ In order to run the different examples, open the folder with the name of the flo
 
 Then, open `http://localhost:8888` in a browser.
 
-### Using your own credentials
-The examples contains a working client ID and secret key. Note, however, that they might be rate limited if they are used frequently. If you are planning to create an application, we recommend you register your app and get your own credentials instead of using the ones in this project.
-
-Go to [My Applications on Spotify Developer](https://developer.spotify.com/my-applications) and create your application. For the examples, we registered these Redirect URIs:
-
-* http://localhost:8888 (needed for the implicit grant flow)
-* http://localhost:8888/callback
-
-Once you have created your app, replace the `client_id`, `redirect_uri` and `client_secret` in the examples with the ones you get from My Applications.
+###Usage
+1. Log in to spotify.
+2. Search for a song that you like 
+3. Select the song you like
+4. Enter the genre you want to explore
+5. (Currently broken, hoping to be resolved soon. If anyone knows how to properly get recommendations based on seeds within the spotify api please let me know) The app will return a list of tracks within the genre you want to explore which are musically comparable to the song you selected. 
