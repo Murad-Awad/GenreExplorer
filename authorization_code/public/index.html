@@ -20,10 +20,10 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container text-center">
         <div id="login">
             <h1>This is an example of the Authorization Code flow</h1>
-            <a href="/login" class="btn btn-primary">Log in with Spotify</a>
+            <a href="/login" class="btn btn-primary btn-lg btn-block">Log in with Spotify</a>
         </div>
         <div id="loggedin">
             <div id="user-profile">
@@ -43,8 +43,8 @@
            
         </div>
         <div id="newSongs"></div>
-        <button class="btn-danger" onclick="getTracks()" id="getSongs">Find Music</button>
-        </div>
+        <button class="btn-danger" title="Don't click unless logged in!" onclick="getTracks()" id="getSongs">Find Music</button>
+      </div>
     
     <script id="user-profile-template" type="text/x-handlebars-template">
         <h1>Logged in as {{display_name}}</h1>
@@ -91,13 +91,13 @@
     <script id="genreExplorer-template" type="text/x-handlebars">
         <h1>{{title}} By {{artist}}</h1>
         <form>
-            <input type="text" placeholder="What genre would you like to explore?" id="genre"/>  
+            <input type="text" placeholder="What genre would you like to explore?" id="genre" size="31"/>  
           
         </form>
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
         {{#each tracks}}
-        <button class="btn-default" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
+        <a class="btn btn-default btn-md" href="https://play.spotify.com/track/{{id}}" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"> <b>{{name}} </b> by <i>{{artists.0.name}} </i></a>
 
         {{/each}}
     </script>
