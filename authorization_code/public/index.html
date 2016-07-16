@@ -42,7 +42,6 @@
             </div>
         </div>
         <div id="newSongs"></div>
-        <button class="btn btn-default" id="getSongs">Find Songs</button>
         </div>
     
     <script id="user-profile-template" type="text/x-handlebars-template">
@@ -89,8 +88,9 @@
     </script>
     <script id="genreExplorer-template" type="text/x-handlebars">
         <h1>{{title}} By {{artist}}</h1>
-        <form>
+        <form onsubmit="getTracks()">
             <input type="text" placeholder="What genre would you like to explore?" id="genre"/>  
+            <button class="btn-danger" onclick="getTracks()" id="getSongs">Find Music</button>
         </form>
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
@@ -277,10 +277,10 @@
                   searchTracks(document.getElementById('songtext').value.toString());
               }, false);
 
-              document.getElementById('getSongs').addEventListener('click', function () {
+              function getTracks() {
                   getSongFeatures(songID);
                   getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
-              }, false);
+              };
           })();
          
     </script>
