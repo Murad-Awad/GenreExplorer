@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Example of the Authorization Code flow with Spotify</title>
+    <title>Genre Explorer</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="Layout.css" />
     <style type="text/css">
@@ -21,11 +21,12 @@
 
 <body>
     <div class="container text-center">
-        <div id="login">
-
-            <h1>Welcome to Genre Explorer!</h1>
-            <a href="/login" class="btn btn-primary btn-lg btn-block">Click here to log in with Spotify</a>
-        </div>
+            <div id="login">
+                <div class="jumbotron">
+                    <h1>Welcome to Genre Explorer!</h1>
+                    <a href="/login" class="btn btn-primary btn-lg btn-block">Click here to log in with Spotify</a>
+                </div>
+                </div>
         <div id="loggedin">
             <div id="user-profile">
             </div>
@@ -50,12 +51,6 @@
       </div>
     
     <script id="user-profile-template" type="text/x-handlebars-template">
-        <h1>Welcome {{display_name}}!</h1>
-        <div class="media">
-            <div class="pull-left">
-                <img class="media-object" width="150" src="{{images.0.url}}" />
-            </div>
-        </div>
     </script>
 
     <script id="oauth-template" type="text/x-handlebars-template">
