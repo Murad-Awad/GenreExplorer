@@ -176,6 +176,7 @@
     document.getElementById('search').addEventListener('click', function (e) {
         e.preventDefault();
         searchTracks(document.getElementById('songtext').value.toString());
+        $("#search").hide();
     }, false);
 
 })();
