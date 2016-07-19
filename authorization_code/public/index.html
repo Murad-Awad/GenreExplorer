@@ -35,15 +35,17 @@
         <div id="genreExplorer">
             <div class="container">
                 <form id="important">
-                    <input type="text" placeholder="What song do you like?" id="songtext" />
+                    <div class="jumbotron">
+                        <h2>Enter a song that you like:</h2>
+                    <input type="text" class="form-control" placeholder="What song do you like?" id="songtext" />
                     <button class="btn btn-default" id="search">Search</button>
+                    </div>
                 </form>
                <div id="results"></div>
             </div>
            
         </div>
         <div id="newSongs"></div>
-        <button class="btn btn-default" title="Don't click unless logged in!" onclick="getTracks()" id="getSongs">Find Music</button>
       </div>
     
     <script id="user-profile-template" type="text/x-handlebars-template">
@@ -59,20 +61,30 @@
 
     </script>
     <script id="results-template" type="text/x-handlebars-template">
-        {{#each tracks.items}}
-        <button class="btn btn-default" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname= "{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</button>
-        
-        {{/each}}
-    </script>
+        <div class="container">
+            <div class="jumbotron">
+                <div class="list-group">
+                    {{#each tracks.items}}
+                    <a class="list-group-item" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"><b>{{name}}</b> By <i>{{artists.0.name}}</i></a>
+                        {{/each}}
+                </div>
+            </div>
+            </div>
+</script>
     <script id="genreExplorer-template" type="text/x-handlebars">
         <div class="container">
             <div class="jumbotron">
             <h2>{{title}} By {{artist}}</h2>
             <form>
                 <input type="text" class="form-control"placeholder="What genre would you like to explore?" id="genre" size="31" />
+                <div id="results2">
+                    <button class="btn btn-default" onclick="getTracks()" id="getSongs">Find Music</button>
+                    </div>
             </form>
+                
                 </div>
-        </div>
+       </div>
+        
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
         <div class="container">

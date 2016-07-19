@@ -161,6 +161,12 @@
         var target = e.target;
         var songData = { title: target.getAttribute("songid"), artist: target.getAttribute("artistname") };
         resultsPlaceholder2.innerHTML = template2(songData);
+        document.getElementById('getSongs').onclick = function () {
+            getSongFeatures(songID);
+            getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
+            $('#getSongs').hide();
+            $('#results2').innerHTML = $('#newSongs').innerHTML;
+        };
         var songID = target.getAttribute("song-data-id");
         window.songID = songID;
         artistDataID = target.getAttribute("artistid");
@@ -170,11 +176,6 @@
     document.getElementById('search').addEventListener('click', function (e) {
         e.preventDefault();
         searchTracks(document.getElementById('songtext').value.toString());
-    }, false);
-
-    document.getElementById('getSongs').addEventListener('click', function () {
-        getSongFeatures(songID);
-        getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
     }, false);
 
 })();
