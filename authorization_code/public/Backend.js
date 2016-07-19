@@ -74,20 +74,7 @@
             $('#loggedin').hide();
             $('#important').hide();
         }
-        document.getElementById('obtain-new-token').addEventListener('click', function () {
-            $.ajax({
-                url: '/refresh_token',
-                data: {
-                    'refresh_token': refresh_token
-                }
-            }).done(function (data) {
-                access_token = data.access_token;
-                oauthPlaceholder.innerHTML = oauthTemplate({
-                    access_token: access_token,
-                    refresh_token: refresh_token
-                });
-            });
-        }, false);
+      
     }
     var getSongFeatures = function (id) {
         $.ajax({
@@ -164,7 +151,6 @@
         document.getElementById('getSongs').onclick = function () {
             getSongFeatures(songID);
             getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
-            $('#getSongs').hide();
         };
         var songID = target.getAttribute("song-data-id");
         window.songID = songID;
