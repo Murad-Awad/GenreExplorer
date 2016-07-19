@@ -165,7 +165,6 @@
             getSongFeatures(songID);
             getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
             $('#getSongs').hide();
-            $('#results2').innerHTML = $('#newSongs').innerHTML;
         };
         var songID = target.getAttribute("song-data-id");
         window.songID = songID;

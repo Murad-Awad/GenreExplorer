@@ -61,7 +61,7 @@
             <div class="jumbotron">
                 <div class="list-group">
                     {{#each tracks.items}}
-                    <a class="list-group-item" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"><b>{{name}}</b> By <i>{{artists.0.name}}</i></a>
+                    <a class="list-group-item" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}">{{name}} By {{artists.0.name}}</a>
                         {{/each}}
                 </div>
             </div>
