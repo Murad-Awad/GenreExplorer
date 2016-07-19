@@ -115,7 +115,6 @@
     var getNewTracks = function (a, d, e, i, k, li, lo, m, s, te, ti, v, gs) {
         $.ajax({
             url: 'https://api.spotify.com/v1/recommendations',
-            async: false,
             headers: {
                 'Authorization': 'Bearer ' + access_token
             },
@@ -136,7 +135,6 @@
 
             },
             success: function (response) {
-
                 newSongsPlaceholder.innerHTML = template3(response);
             },
             error: function (xhr, response, textStatus, thrownError) {
@@ -148,10 +146,10 @@
         var target = e.target;
         var songData = { title: target.getAttribute("songid"), artist: target.getAttribute("artistname") };
         resultsPlaceholder2.innerHTML = template2(songData);
-        document.getElementById('getSongs').onclick = function () {
+        document.getElementById('getSongs').addEventListener('click', function () {
             getSongFeatures(songID);
             getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
-        };
+        }, false);
         var songID = target.getAttribute("song-data-id");
         window.songID = songID;
         artistDataID = target.getAttribute("artistid");
