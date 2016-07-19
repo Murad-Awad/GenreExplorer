@@ -1,48 +1,118 @@
-﻿/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
+﻿(function () {
+    /**
+     * Obtains parameters from the hash of the URL
+     * @return Object
+     */
 
-var express = require('express'); // Express web server framework
-var request = require('request'); // "Request" library
-var querystring = require('querystring');
-var cookieParser = require('cookie-parser');
-
-var client_id = 'c4a76c855c7146ffbd9f504995d0ebe8'; // Your client id
-var client_secret = '815d7864e93d470dbfd4ba517f09c4de'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
-
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
-var generateRandomString = function (length) {
-    var text = '';
-    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    for (var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    var dance;
+    var energy;
+    var key;
+    var loudness;
+    var mode;
+    var speechiness;
+    var acousticness;
+    var instrumentalness;
+    var liveness;
+    var valence;
+    var tempo;
+    var time_signature;
+    var artistDataID;
+    var templateSource = document.getElementById('results-template').innerHTML,
+  template = Handlebars.compile(templateSource),
+  resultsPlaceholder = document.getElementById('results'),
+  playingCssClass = 'playing',
+  audioObject = null;
+    var templateSource2 = document.getElementById('genreExplorer-template').innerHTML;
+    var template2 = Handlebars.compile(templateSource2);
+    var resultsPlaceholder2 = document.getElementById('genreExplorer');
+    var templateSource3 = document.getElementById('getsongs-template').innerHTML;
+    var template3 = Handlebars.compile(templateSource3);
+    var newSongsPlaceholder = document.getElementById('newSongs');
+    function getHashParams() {
+        var hashParams = {};
+        var e, r = /([^&;=]+)=?([^&;]*)/g,
+            q = window.location.hash.substring(1);
+        while (e = r.exec(q)) {
+            hashParams[e[1]] = decodeURIComponent(e[2]);
+        }
+        return hashParams;
     }
-    return text;
-};
-
-var stateKey = 'spotify_auth_state';
-
-var app = express();
-
-app.use(express.static(__dirname + '/public'))
-   .use(cookieParser());
-var Genre = document.getElementById("genre");
-var Song = document.getElementById("song");
-(function () {
-    var audio = new Audio();
-
-    function searchTracks(query) {
+    var userProfileSource = document.getElementById('user-profile-template').innerHTML,
+        userProfileTemplate = Handlebars.compile(userProfileSource),
+        userProfilePlaceholder = document.getElementById('user-profile');
+    var oauthSource = document.getElementById('oauth-template').innerHTML,
+        oauthTemplate = Handlebars.compile(oauthSource),
+        oauthPlaceholder = document.getElementById('oauth');
+    var params = getHashParams();
+    var access_token = params.access_token,
+        refresh_token = params.refresh_token,
+        error = params.error;
+    if (error) {
+        alert('There was an error during the authentication');
+    } else {
+        if (access_token) {
+            // render oauth info
+            oauthPlaceholder.innerHTML = oauthTemplate({
+                access_token: access_token,
+                refresh_token: refresh_token
+            });
+            $.ajax({
+                url: 'https://api.spotify.com/v1/me',
+                headers: {
+                    'Authorization': 'Bearer ' + access_token
+                },
+                success: function (response) {
+                    userProfilePlaceholder.innerHTML = userProfileTemplate(response);
+                    $('#login').hide();
+                    $('#important').show();
+                    $('#loggedin').show();
+                }
+            });
+        } else {
+            // render initial screen
+            $('#login').show();
+            $('#loggedin').hide();
+            $('#important').hide();
+        }
+        document.getElementById('obtain-new-token').addEventListener('click', function () {
+            $.ajax({
+                url: '/refresh_token',
+                data: {
+                    'refresh_token': refresh_token
+                }
+            }).done(function (data) {
+                access_token = data.access_token;
+                oauthPlaceholder.innerHTML = oauthTemplate({
+                    access_token: access_token,
+                    refresh_token: refresh_token
+                });
+            });
+        }, false);
+    }
+    var getSongFeatures = function (id) {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/audio-features/' + id,
+            async: false,
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            },
+            success: function (response) {
+                dance = response.danceability;
+                energy = response.energy;
+                key = response.key;
+                loudness = response.loudness;
+                mode = response.mode;
+                speechiness = response.speechiness;
+                acousticness = response.acousticness;
+                instrumentalness = response.instrumentalness;
+                liveness = response.liveness;
+                valence = response.valence;
+                tempo = response.tempo;
+                time_signature = response.time_signature;
+            }
+        });
+    }
+    var searchTracks = function (query) {
         $.ajax({
             url: 'https://api.spotify.com/v1/search',
             data: {
@@ -50,23 +120,60 @@ var Song = document.getElementById("song");
                 type: 'track'
             },
             success: function (response) {
-                if (response.tracks.items.length) {
-                    var track = response.tracks.items[0];
-                    audio.src = track.preview_url;
-                    audio.play();
-                    communicateAction('<div>Playing ' + track.name + ' by ' + track.artists[0].name + '</div><img width="150" src="' + track.album.images[1].url + '">');
-                }
+                resultsPlaceholder.innerHTML = template(response);
+
             }
         });
     }
+    var getNewTracks = function (a, d, e, i, k, li, lo, m, s, te, ti, v, gs) {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/recommendations',
+            async: false,
+            headers: {
+                'Authorization': 'Bearer ' + access_token
+            },
+            data: {
+                seed_genres: gs,
+                target_acousticness: a,
+                target_danceability: d,
+                target_energy: e,
+                target_instrumentalness: i,
+                target_key: k,
+                target_liveness: li,
+                target_loudness: lo,
+                target_mode: m,
+                target_speechiness: s,
+                target_tempo: te,
+                target_time_signature: ti,
+                target_valence: v
 
-    function playSong(songName, artistName) {
-        var query = songName;
-        if (artistName) {
-            query += ' artist:' + artistName;
-        }
+            },
+            success: function (response) {
 
-        searchTracks(query);
+                newSongsPlaceholder.innerHTML = template3(response);
+            },
+            error: function (xhr, response, textStatus, thrownError) {
+                document.write(response + JSON.stringify(xhr) + JSON.stringify(textStatus) + JSON.stringify(thrownError));
+            }
+        });
     }
+    results.addEventListener('click', function (e) {
+        var target = e.target;
+        var songData = { title: target.getAttribute("songid"), artist: target.getAttribute("artistname") };
+        resultsPlaceholder2.innerHTML = template2(songData);
+        var songID = target.getAttribute("song-data-id");
+        window.songID = songID;
+        artistDataID = target.getAttribute("artistid");
+        window.artistDataID = artistDataID;
+    });
 
-});
+    document.getElementById('search').addEventListener('click', function (e) {
+        e.preventDefault();
+        searchTracks(document.getElementById('songtext').value.toString());
+    }, false);
+
+    document.getElementById('getSongs').addEventListener('click', function () {
+        getSongFeatures(songID);
+        getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
+    }, false);
+})();
