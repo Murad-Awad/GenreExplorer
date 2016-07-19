@@ -21,6 +21,7 @@
 <body>
     <div class="container text-center">
         <div id="login">
+
             <h1>This is an example of the Authorization Code flow</h1>
             <a href="/login" class="btn btn-primary btn-lg btn-block">Log in with Spotify</a>
         </div>
@@ -42,44 +43,20 @@
            
         </div>
         <div id="newSongs"></div>
-        <button class="btn-danger" title="Don't click unless logged in!" onclick="getTracks()" id="getSongs">Find Music</button>
+        <button class="btn btn-default" title="Don't click unless logged in!" onclick="getTracks()" id="getSongs">Find Music</button>
       </div>
     
     <script id="user-profile-template" type="text/x-handlebars-template">
-        <h1>Logged in as {{display_name}}</h1>
+        <h1>Welcome {{display_name}}!</h1>
         <div class="media">
             <div class="pull-left">
                 <img class="media-object" width="150" src="{{images.0.url}}" />
-            </div>
-            <div class="media-body">
-                <dl class="dl-horizontal">
-                    <dt>Display name</dt>
-                    <dd class="clearfix">{{display_name}}</dd>
-                    <dt>Id</dt>
-                    <dd>{{id}}</dd>
-                    <dt>Email</dt>
-                    <dd>{{email}}</dd>
-                    <dt>Spotify URI</dt>
-                    <dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-                    <dt>Link</dt>
-                    <dd><a href="{{href}}">{{href}}</a></dd>
-                    <dt>Profile Image</dt>
-                    <dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-                    <dt>Country</dt>
-                    <dd>{{country}}</dd>
-                </dl>
             </div>
         </div>
     </script>
 
     <script id="oauth-template" type="text/x-handlebars-template">
-        <h2>oAuth info</h2>
-        <dl class="dl-horizontal">
-            <dt>Access token</dt>
-            <dd class="text-overflow">{{access_token}}</dd>
-            <dt>Refresh token</dt>
-            <dd class="text-overflow">{{refresh_token}}></dd>
-        </dl>
+
     </script>
     <script id="results-template" type="text/x-handlebars-template">
         {{#each tracks.items}}
@@ -88,17 +65,25 @@
         {{/each}}
     </script>
     <script id="genreExplorer-template" type="text/x-handlebars">
-        <h1>{{title}} By {{artist}}</h1>
-        <form>
-            <input type="text" placeholder="What genre would you like to explore?" id="genre" size="31"/>  
-          
-        </form>
+        <div class="container">
+            <div class="jumbotron">
+            <h2>{{title}} By {{artist}}</h2>
+            <form>
+                <input type="text" class="form-control"placeholder="What genre would you like to explore?" id="genre" size="31" />
+            </form>
+                </div>
+        </div>
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
-        {{#each tracks}}
-        <a class="btn btn-default" href="https://play.spotify.com/track/{{id}}" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"> <b>{{name}} </b> by <i>{{artists.0.name}} </i></a>
-
-        {{/each}}
+        <div class="container">
+            <div class="jumbotron">
+            <div class="list-group">
+                {{#each tracks}}
+        <a class="list-group-item" href="https://play.spotify.com/track/{{id}}" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"> <b>{{name}} </b> by <i>{{artists.0.name}} </i></a>
+                {{/each}}
+            </div>
+        </div>
+            </div>
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
