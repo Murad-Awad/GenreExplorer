@@ -76,20 +76,6 @@
         }
       
     }
-    var RefreshToken = function() {
-        $.ajax({
-            url: '/refresh_token',
-            data: {
-                'refresh_token': refresh_token
-            }
-        }).done(function(data) {
-            access_token = data.access_token;
-            oauthPlaceholder.innerHTML = oauthTemplate({
-                access_token: access_token,
-                refresh_token: refresh_token
-            });
-        })
-    };
     var getSongFeatures = function (id) {
         $.ajax({
             url: 'https://api.spotify.com/v1/audio-features/' + id,
@@ -154,7 +140,6 @@
                     _valence += valence; 
                     _tempo += tempo; 
                     _time_signature += time_signature; 
-                    RefreshToken();
                 }
                 dance = _dance/response.tracks.length; 
                 energy = _energy/response.tracks.length; 
