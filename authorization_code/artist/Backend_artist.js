@@ -102,13 +102,16 @@
 
     var getArtistFeatures = function (id) {
         $.ajax({
-            url: 'https://api.spotify.com/v1/artists/' + id + '/top-tracks?country=US',
+            url: 'https://api.spotify.com/v1/artists/' + id + '/top-tracks',
             async: false,
             headers: {
                 'Authorization': 'Bearer ' + access_token
             },
+            data:{
+                country: 'US'
+            },
             success: function (response) {
-                getSongFeatures(response.tracks[0].id); 
+                getSongFeatures(response.tracks[0].id);
 
                 var _dance = dance; 
                 var _energy = energy; 
@@ -122,7 +125,7 @@
                 var _valence = valence; 
                 var _tempo = tempo; 
                 var _time_signature = time_signature; 
-
+               
                 for(i = 1; i < response.tracks.length; i++) {
                     getSongFeatures(response.tracks[i].id); 
                     _dance += dance; 
@@ -216,6 +219,8 @@
     }
     results.addEventListener('click', function (e) {
         var target = e.target;
+        artistDataID = target.getAttribute("artist-data-id");
+        window.artistDataID = artistDataID;
         var songData = { title: target.getAttribute("songid"), artist: target.getAttribute("artistname") };
         resultsPlaceholder2.innerHTML = template2(songData);
         document.getElementById('getSongs').addEventListener('click', function () {
@@ -224,8 +229,6 @@
         }, false);
         var songID = target.getAttribute("song-data-id");
         window.songID = songID;
-        artistDataID = target.getAttribute("artistid");
-        window.artistDataID = artistDataID;
     });
 
     document.getElementById('search').addEventListener('click', function (e) {

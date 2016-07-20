@@ -60,7 +60,7 @@
             <div class="jumbotron">
                 <div class="list-group">
                     {{#each artists.items}}
-                    <a class="list-group-item" id="artist" artistname="{{name}}" artist-data-id="{{id}}"> <b> {{name}} </b> </a>
+                    <a class="list-group-item" id="artist" artistname="{{name}}" artist-data-id="{{id}}"> {{name}} </a>
                         {{/each}}
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <form>
                 <input type="text" class="form-control"placeholder="What genre would you like to explore?" id="genre" size="31" />
                 <div id="results2">
-                    <button class="btn btn-default" onclick="getTracks()" id="getSongs">Find Music</button>
+                    <button class="btn btn-default" id="getSongs">Find Music</button>
                     </div>
             </form>
                 
