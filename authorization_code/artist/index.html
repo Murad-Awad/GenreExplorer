@@ -20,67 +20,72 @@
 </head>
 
 <body>
-    <div class="container text-center">
+    <div class="container">
+    <div class="jumbotron">
+        <div class="container text-center">
+
             <div id="login">
                 <div class="jumbotron">
                     <h1>Welcome to Genre Explorer!</h1>
                     <a href="/login" class="btn btn-primary btn-lg btn-block">Click here to log in with Spotify</a>
                 </div>
+            </div>
+            <div id="loggedin">
+                <div id="user-profile">
                 </div>
-        <div id="loggedin">
-            <div id="user-profile">
+                <div id="oauth">
+                </div>
             </div>
-            <div id="oauth">
+            <div id="genreExplorer">
+                <div class="container">
+                    <form id="important">
+                        <div class="jumbotron">
+                            <h2>Enter an artist that you like:</h2>
+                            <input type="text" class="form-control" placeholder="What artists do you like?" id="artisttext" />
+                            <button class="btn btn-default" id="search">Search</button>
+                        </div>
+                    </form>
+                    <div id="results"></div>
+                </div>
+
             </div>
+            <div id="newSongs"></div>
         </div>
-        <div id="genreExplorer">
+        </div>
+        </div>
+        <script id="user-profile-template" type="text/x-handlebars-template">
+        </script>
+
+        <script id="oauth-template" type="text/x-handlebars-template">
+
+        </script>
+        <script id="results-template" type="text/x-handlebars-template">
             <div class="container">
-                <form id="important">
-                    <div class="jumbotron">
-                        <h2>Enter an artist that you like:</h2>
-                    <input type="text" class="form-control" placeholder="What artists do you like?" id="artisttext" />
-                    <button class="btn btn-default" id="search">Search</button>
-                    </div>
-                </form>
-               <div id="results"></div>
-            </div>
-           
-        </div>
-        <div id="newSongs"></div>
-      </div>
-    
-    <script id="user-profile-template" type="text/x-handlebars-template">
-    </script>
-
-    <script id="oauth-template" type="text/x-handlebars-template">
-
-    </script>
-    <script id="results-template" type="text/x-handlebars-template">
-        <div class="container">
-            <div class="jumbotron">
-                <div class="list-group">
-                    {{#each artists.items}}
-                    <a class="list-group-item" id="artist" artistname="{{name}}" artist-data-id="{{id}}"> {{name}} </a>
+                <div class="jumbotron">
+                    <div class="list-group">
+                        {{#each artists.items}}
+                        <a class="list-group-item" id="artist" artistname="{{name}}" artist-data-id="{{id}}"> {{name}} </a>
                         {{/each}}
-                </div>
-            </div>
-            </div>
-</script>
-    <script id="genreExplorer-template" type="text/x-handlebars">
-        <div class="container">
-            <div class="jumbotron">
-            <h2>{{name}}</h2>
-            <form>
-                <input type="text" class="form-control"placeholder="What genre would you like to explore?" id="genre" size="31" />
-                <div id="results2">
-                    <button class="btn btn-default" id="getSongs">Find Music</button>
                     </div>
-            </form>
-                
                 </div>
-       </div>
-        
-    </script>
+            </div>
+        </script>
+        <script id="genreExplorer-template" type="text/x-handlebars">
+            <div class="container">
+                <div class="jumbotron">
+                    <h2>{{name}}</h2>
+                    <form>
+                        <input type="text" class="form-control" placeholder="What genre would you like to explore?" id="genre" size="31" />
+                        <div id="results2">
+                            <button class="btn btn-default" id="getSongs">Find Music</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </script>
+    </div>
     <script id="getsongs-template" type="text/x-handlebars-template">
         <div class="container">
             <div class="jumbotron">
