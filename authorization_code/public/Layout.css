@@ -3,3 +3,19 @@
 a:hover{
     cursor:pointer;
 }
+#song{
+	position:fixed;
+	left:80px;
+}
+#artist{
+	position:fixed;
+	left:260px;
+}
+#about{
+	position:fixed;
+	left:400px;
+}
+#contact{
+	position:fixed;
+	left:500px;
+}
