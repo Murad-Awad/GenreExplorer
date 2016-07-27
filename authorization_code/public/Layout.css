@@ -5,17 +5,17 @@ a:hover{
 }
 #song{
 	position:fixed;
-	left:80px;
+	left:130px;
 }
 #artist{
 	position:fixed;
-	left:260px;
+	left:480px;
 }
 #about{
 	position:fixed;
-	left:400px;
+	left:830px;
 }
 #contact{
 	position:fixed;
-	left:500px;
+	left:1100px;
 }
