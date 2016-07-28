@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Genre Explorer</title>
+    <link rel="stylesheet" type="text/css" href="Layout.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <style type="text/css">
         #login, #loggedin {
@@ -20,11 +21,27 @@
 </head>
 
 <body>
-    <div class="container span3 sidebar-nav text-center" style="margin: 28px">
-        <a href="artist.html"> <b> Results Based on Artists </b> </a>
-        <a href="index.html"> <b>    Results Based on Songs </b> <!--We should really make index the original picker and have separate pages for each - not as smooth but easier--> 
+<div id="navigation">
+<nav class="navbar navbar-inverse">
+<div class="container-fluid">
+  <ul class="nav navbar-nav">
+    <li class="nav-item" id="song">
+      <a class="nav-link" href="index.html">Search by Song<span class="sr-only">(current)</span></a>
+    </li>
+    <li class="nav-item" id="artist">
+      <a class="nav-link" href="artist.html">Search by Artist</a>
+    </li>
+     <li class="nav-item" id="about">
+      <a class="nav-link" href="artist.html">About Us</a>
+    </li>
+     <li class="nav-item" id="contact">
+      <a class="nav-link" href="#">Contact Us</a>
+    </li>
+  </ul>
+  </div>
+</nav>
+</div><!--We should really make index the original picker and have separate pages for each - not as smooth but easier--> 
             <!-- The other solution would be to have it all loaded on the fly, which is a little more added complexity - so this is current solution--> 
-    </div>
     <div class="container">
     <div class="jumbotron">
         <div class="container text-center">
