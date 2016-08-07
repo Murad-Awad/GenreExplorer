@@ -21,24 +21,20 @@
 
 <body> 
 <div id="navigation">
-<nav class="navbar navbar-inverse">
-<div class="container-fluid">
-  <ul class="nav navbar-nav">
-    <li class="nav-item" id="song">
-      <a class="nav-link" href="index.html">Search by Song<span class="sr-only">(current)</span></a>
+  <ul>
+    <li id="song-navbar">
+      <a href="index.html">Search by Song</a>
     </li>
-    <li class="nav-item" id="artist">
-      <a class="nav-link" href="artist.html">Search by Artist</a>
+    <li id="artist-navbar">
+      <a href="artist.html">Search by Artist</a>
     </li>
-     <li class="nav-item" id="about">
-      <a class="nav-link" href="artist.html">About Us</a>
+     <li id="about-navbar">
+      <a href="artist.html">About Us</a>
     </li>
-     <li class="nav-item" id="contact">
-      <a class="nav-link" href="#">Contact Us</a>
+     <li id="contact-navbar">
+      <a href="#">Contact Us</a>
     </li>
   </ul>
-  </div>
-</nav>
 </div>
  <!--We should really make index the original picker and have separate pages for each - not as smooth but easier--> 
             <!-- The other solution would be to have it all loaded on the fly, which is a little more added complexity - so this is current solution--> 
@@ -56,7 +52,6 @@
             </div>
         </div>
         <div id="genreExplorer">
-            <div class="container">
                 <form id="important">
                     <div class="jumbotron">
                         <h2>Enter a song that you like:</h2>
@@ -65,8 +60,6 @@
                     </div>
                 </form>
                <div id="results"></div>
-            </div>
-           
         </div>
         <div id="newSongs"></div>
       </div>
