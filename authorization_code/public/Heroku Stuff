@@ -1,0 +1,10 @@
+Get Heroku Toolbelt
+
+/authorization_code is the base for the heroku stuff 
+
+Commands
+$ heroku login
+$ git add .
+$ git commit -am "message-here"
+$ heroku create (?????)
+$ git push heroku master
