@@ -60,3 +60,14 @@ li a:hover:not(.active) {
     text-decoration: none;
 
 }
+#ishan{
+	position: absolute;
+	left: 230px;
+	width: 30%;
+}
+#murad{
+	position: absolute;
+	bottom: -0.5%;
+	left: 640px;
+	width: 107%;
+}
