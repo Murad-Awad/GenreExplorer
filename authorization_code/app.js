@@ -6,6 +6,7 @@
  * For more information, read
  * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
  */
+var port = process.env.PORT || 8080; 
 
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
@@ -14,7 +15,7 @@ var cookieParser = require('cookie-parser');
 
 var client_id = 'c4a76c855c7146ffbd9f504995d0ebe8'; // Your client id
 var client_secret = '815d7864e93d470dbfd4ba517f09c4de'; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Your redirect uri
+var redirect_uri = 'https://genreexplorer.herokuapp.com/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -142,4 +143,4 @@ app.get('/refresh_token', function (req, res) {
 });
 
 console.log('Listening on 8888');
-app.listen(8888);
+app.listen(port);
