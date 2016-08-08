@@ -1,9 +1,9 @@
-﻿(function () {
+(function () {
     /**
      * Obtains parameters from the hash of the URL
      * @return Object
      */
-    var selectSong = false; 
+    var selectSong = true; 
     var dance;
     var energy;
     var key;
@@ -30,8 +30,6 @@
     var templateSource3 = document.getElementById('getsongs-template').innerHTML;
     var template3 = Handlebars.compile(templateSource3);
     var newSongsPlaceholder = document.getElementById('newSongs');
-    var templateSource5 = document.getElementById('genreExplorer-artist-template').innerHTML;
-    var template5 = Handlebars.compile(templateSource5); 
     function getHashParams() {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -244,7 +242,7 @@ z            }
             artistDataID = target.getAttribute("artist-data-id");
             window.artistDataID = artistDataID;
             var songData = { title: target.getAttribute("songid"), artist: target.getAttribute("artistname") };
-            resultsPlaceholder2.innerHTML = template5(songData);
+            resultsPlaceholder2.innerHTML = template2(songData);
             document.getElementById('getSongs').addEventListener('click', function () {
             getArtistFeatures(artistDataID);
             getNewTracks(acousticness, dance, energy, instrumentalness, key, liveness, loudness, mode, speechiness, tempo, time_signature, valence, document.getElementById("genre").value.toString());
