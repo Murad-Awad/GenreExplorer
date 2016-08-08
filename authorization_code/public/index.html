@@ -71,7 +71,6 @@
 
     </script>
     <script id="results-template" type="text/x-handlebars-template">
-        <div class="container">
             <div class="jumbotron">
                 <div class="list-group">
                     {{#each tracks.items}}
@@ -79,10 +78,8 @@
                         {{/each}}
                 </div>
             </div>
-            </div>
 </script>
     <script id="genreExplorer-template" type="text/x-handlebars">
-        <div class="container">
             <div class="jumbotron">
             <h2>{{title}} By {{artist}}</h2>
             <form>
@@ -93,19 +90,16 @@
             </form>
                 
                 </div>
-       </div>
         
     </script>
     <script id="getsongs-template" type="text/x-handlebars-template">
-        <div class="container">
             <div class="jumbotron">
             <div class="list-group">
                 {{#each tracks}}
-        <a class="list-group-item" href="https://play.spotify.com/track/{{id}}" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"> <b>{{name}} </b> by <i>{{artists.0.name}} </i></a>
+        <a class="list-group-item" href="https://play.spotify.com/track/{{id}}" target="_blank" id="song" songid="{{name}}" artistid="{{artists.0.id}}" artistname="{{artists.0.name}}" song-data-id="{{id}}"> <b>{{name}} </b> by <i>{{artists.0.name}} </i></a>
                 {{/each}}
             </div>
         </div>
-            </div>
     </script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
